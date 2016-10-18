@@ -1,0 +1,27 @@
+clone:
+  recursive: true
+  tags: true
+
+pipeline:
+  build-dev:
+    image: docker
+    environment: 
+      NAME: activemq
+    commands:
+      - docker build --force-rm -t winshare/${NAME}:${DRONE_TAG=dev}-rc -f Dockerfile .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      branch: develop
+  build-prod:
+    image: docker
+    environment: 
+      NAME: activemq
+    commands:
+      - docker build --force-rm -t winshare/${NAME}:${DRONE_TAG=latest} -f Dockerfile .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      branch: [master, release]
+      event: [push, tag]
+
