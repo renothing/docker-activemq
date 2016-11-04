@@ -6,9 +6,10 @@ ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
     TIMEZONE="Asia/Shanghai" \
     VERSION=5.14.1                              
 #install software                                                          
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update && \ 
-#RUN apk update && \
-    wget http://mirrors.aliyun.com/apache/activemq/${VERSION}/apache-activemq-${VERSION}-bin.tar.gz -O /usr/local/apache-activemq-${VERSION}-bin.tar.gz && \
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update && \ 
+RUN apk update && \
+#   wget http://mirrors.aliyun.com/apache/activemq/${VERSION}/apache-activemq-${VERSION}-bin.tar.gz -O /usr/local/apache-activemq-${VERSION}-bin.tar.gz && \
+    wget http://archive.apache.org/dist/activemq/${VERSION}/apache-activemq-${VERSION}-bin.tar.gz -O /usr/local/apache-activemq-${VERSION}-bin.tar.gz && \
     cd /usr/local && tar xf apache-activemq-${VERSION}-bin.tar.gz && mv apache-activemq-${VERSION} apache-activemq && \
     rm -rf /usr/local/apache-activemq-${VERSION}-bin.tar.gz
 #export data dir
