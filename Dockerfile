@@ -11,7 +11,12 @@ RUN apk update && \
 #   wget http://mirrors.aliyun.com/apache/activemq/${VERSION}/apache-activemq-${VERSION}-bin.tar.gz -O /usr/local/apache-activemq-${VERSION}-bin.tar.gz && \
     wget http://archive.apache.org/dist/activemq/${VERSION}/apache-activemq-${VERSION}-bin.tar.gz -O /usr/local/apache-activemq-${VERSION}-bin.tar.gz && \
     cd /usr/local && tar xf apache-activemq-${VERSION}-bin.tar.gz && mv apache-activemq-${VERSION} apache-activemq && \
-    rm -rf /usr/local/apache-activemq-${VERSION}-bin.tar.gz
+    rm -rf /usr/local/apache-activemq-${VERSION}-bin.tar.gz && \
+    apk add tzdata && \
+    cp -rf /usr/share/zoneinfo/"${TIMEZONE}" /etc/localtime && \
+    echo "${TIMEZONE}" > /etc/timezone && \
+    apk del tzdata && \
+    rm -rf /var/cache/apk/*
 #export data dir
 #VOLUME ["/usr/local/apache-activemq/data","/usr/local/apache-activemq/conf"]
 #forwarding port
